@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
+import android.widget.SearchView.*
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -42,6 +44,11 @@ class MainFragment : Fragment(), MainAdapter.OnDrinkClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         setupRecyclerView()
+        setupSerachView()
+        setupObservers()
+    }
+
+    private fun setupObservers() {
         viewModel.fetchDrinkList.observe(viewLifecycleOwner, Observer { result ->
             when(result) {
                 is Resourse.Loading -> {
@@ -57,6 +64,18 @@ class MainFragment : Fragment(), MainAdapter.OnDrinkClickListener {
                     progressBar.visibility = View.GONE
                     Toast.makeText(requireContext(), "Error al cargar los datos", Toast.LENGTH_SHORT).show()
                 }
+            }
+        })
+    }
+    private fun setupSerachView() {
+        searchDrink.setOnQueryTextListener(object: OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                viewModel.setDrink(query!!)
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return false
             }
         })
     }
