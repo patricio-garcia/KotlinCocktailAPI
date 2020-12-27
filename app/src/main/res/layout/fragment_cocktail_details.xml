@@ -4,14 +4,48 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
+    android:orientation="vertical"
+
     tools:context=".ui.CocktailDetailsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+   <com.github.chrisbanes.photoview.PhotoView
+       android:id="@+id/img_drinkDetail"
+       android:layout_width="match_parent"
+       android:layout_height="300dp" />
+
     <TextView
+        android:id="@+id/tv_drinkTitle"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/tv_hasAlcoholic"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textStyle="normal"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/tv_DrinkInstructions"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="Detalle de Tragos"
-        android:textSize="25sp"/>
+        android:textSize="16sp"
+        android:textStyle="italic"
+        android:textColor="@color/black" />
 
 </LinearLayout>

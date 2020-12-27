@@ -13,7 +13,11 @@ data class Drink(
     val name: String = "",
 
     @SerializedName("strInstructions")
-    val description: String = ""
+    val description: String = "",
+
+    @SerializedName("strAlcoholic")
+    val hasAlcoholic: String = "Non_Alcoholic"
+
 ) : Parcelable
 
 data class DrinkList(

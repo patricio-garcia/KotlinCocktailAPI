@@ -88,6 +88,6 @@ class MainFragment : Fragment(), MainAdapter.OnDrinkClickListener {
     override fun onDrinkClick(drink: Drink) {
         val bundle = Bundle()
         bundle.putParcelable("drink", drink)
-        findNavController().navigate(R.id.cocktailDetailsFragment, bundle)
+        findNavController().navigate(R.id.action_mainFragment_to_cocktailDetailsFragment, bundle)
     }
 }
