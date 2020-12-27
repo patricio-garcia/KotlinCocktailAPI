@@ -15,9 +15,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController
 
-    //Se inyecta dependencia al Model
-    private val viewModel by viewModels<MainViewModel> { VMFactory(RepoImpl(DataSource())) }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

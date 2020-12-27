@@ -7,6 +7,6 @@ import cl.serlitoral.kotlincocktailapi.vo.Resourse
 class RepoImpl(private val dataSource: DataSource): Repo {
 
     override fun getDrinkList(): Resourse<List<Drink>> {
-        return dataSource.getDrinkList()
+        return dataSource.generateDrinkList
     }
 }
