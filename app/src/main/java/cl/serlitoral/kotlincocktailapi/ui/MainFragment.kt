@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import cl.serlitoral.kotlincocktailapi.R
-import cl.serlitoral.kotlincocktailapi.databinding.FragmentMainBinding
 import kotlinx.android.synthetic.main.fragment_main.*
 
 class MainFragment : Fragment() {
