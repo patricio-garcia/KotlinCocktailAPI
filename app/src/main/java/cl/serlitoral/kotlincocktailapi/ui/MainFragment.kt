@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SearchView
 import android.widget.SearchView.*
 import android.widget.Toast
 import androidx.fragment.app.viewModels
@@ -13,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import cl.serlitoral.kotlincocktailapi.AppDatabase
 import cl.serlitoral.kotlincocktailapi.R
 import cl.serlitoral.kotlincocktailapi.data.DataSource
 import cl.serlitoral.kotlincocktailapi.data.model.Drink
@@ -25,7 +25,11 @@ import kotlinx.android.synthetic.main.fragment_main.*
 class MainFragment : Fragment(), MainAdapter.OnDrinkClickListener {
 
     //Se inyecta dependencia al Model
-    private val viewModel by viewModels<MainViewModel> { VMFactory(RepoImpl(DataSource())) }
+    private val viewModel by viewModels<MainViewModel> {
+        VMFactory(RepoImpl(
+            DataSource(AppDatabase.getDatabase(requireActivity().applicationContext))
+        )
+    )}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +40,6 @@ class MainFragment : Fragment(), MainAdapter.OnDrinkClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_main, container, false)
     }
 
@@ -46,6 +49,10 @@ class MainFragment : Fragment(), MainAdapter.OnDrinkClickListener {
         setupRecyclerView()
         setupSerachView()
         setupObservers()
+
+        btn_toFavorites.setOnClickListener {
+            findNavController().navigate(R.id.action_mainFragment_to_favoritesFragment)
+        }
     }
 
     private fun setupObservers() {
@@ -67,6 +74,7 @@ class MainFragment : Fragment(), MainAdapter.OnDrinkClickListener {
             }
         })
     }
+
     private fun setupSerachView() {
         searchDrink.setOnQueryTextListener(object: OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -85,7 +93,7 @@ class MainFragment : Fragment(), MainAdapter.OnDrinkClickListener {
         rv_drink.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
     }
 
-    override fun onDrinkClick(drink: Drink) {
+    override fun onDrinkClick(drink: Drink, position: Int) {
         val bundle = Bundle()
         bundle.putParcelable("drink", drink)
         findNavController().navigate(R.id.action_mainFragment_to_cocktailDetailsFragment, bundle)

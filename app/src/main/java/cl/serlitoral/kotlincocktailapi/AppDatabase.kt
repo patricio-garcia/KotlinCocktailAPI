@@ -17,6 +17,11 @@ abstract class AppDatabase: RoomDatabase() {
         private var INSTANCE: AppDatabase? = null
 
         fun getDatabase(context: Context): AppDatabase {
+
+            //Room se puede utlizar con una base de datos local con:
+            // .databaseBuilder(context.applicationContext, AppDatabase::class.java, "drink_table")
+            //o solo mantenerla en memoria (sin persistencia) con:
+            // .inMemoryDatabaseBuilder(context.applicationContext, AppDatabase::class.java)
             INSTANCE = INSTANCE ?: Room
                 .databaseBuilder(context.applicationContext, AppDatabase::class.java, "drink_table")
                 .build()

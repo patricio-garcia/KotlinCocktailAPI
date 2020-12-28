@@ -18,7 +18,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_gravity="right"
-        android:src="@drawable/ic_favorite_button"
+        android:src="@drawable/ic_favorite_float_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

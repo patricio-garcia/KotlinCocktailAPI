@@ -6,8 +6,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.viewModels
+import cl.serlitoral.kotlincocktailapi.AppDatabase
 import cl.serlitoral.kotlincocktailapi.R
+import cl.serlitoral.kotlincocktailapi.data.DataSource
 import cl.serlitoral.kotlincocktailapi.data.model.Drink
+import cl.serlitoral.kotlincocktailapi.data.model.DrinkEntity
+import cl.serlitoral.kotlincocktailapi.domain.RepoImpl
+import cl.serlitoral.kotlincocktailapi.ui.viewmodel.MainViewModel
+import cl.serlitoral.kotlincocktailapi.ui.viewmodel.VMFactory
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.fragment_cocktail_details.*
 
@@ -15,6 +23,12 @@ import kotlinx.android.synthetic.main.fragment_cocktail_details.*
 class CocktailDetailsFragment : Fragment() {
 
     private lateinit var drink: Drink
+
+    private val viewModel by viewModels<MainViewModel> {
+        VMFactory(RepoImpl(
+            DataSource(AppDatabase.getDatabase(requireActivity().applicationContext))
+        )
+    )}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +63,11 @@ class CocktailDetailsFragment : Fragment() {
         }
 
         tv_DrinkInstructions.text = drink.description
+
+        btn_Favorite.setOnClickListener {
+            viewModel.saveDrink(DrinkEntity(drink.drinkId, drink.image, drink.name, drink.description, drink.hasAlcoholic))
+            Toast.makeText(requireContext(), "Se guardó en Favoritos", Toast.LENGTH_LONG).show()
+        }
 
     }
 

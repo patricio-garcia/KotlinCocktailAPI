@@ -1,9 +1,12 @@
 package cl.serlitoral.kotlincocktailapi.ui.viewmodel
 
 import androidx.lifecycle.*
+import cl.serlitoral.kotlincocktailapi.data.model.Drink
+import cl.serlitoral.kotlincocktailapi.data.model.DrinkEntity
 import cl.serlitoral.kotlincocktailapi.domain.Repo
 import cl.serlitoral.kotlincocktailapi.vo.Resourse
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MainViewModel(private val repo: Repo): ViewModel() {
 
@@ -28,4 +31,26 @@ class MainViewModel(private val repo: Repo): ViewModel() {
             }
         }
     }
+
+    fun saveDrink(drink: DrinkEntity) {
+        viewModelScope.launch {
+            repo.insertDrink(drink)
+        }
+    }
+
+    fun getFavoriteDrinks() = liveData(Dispatchers.IO) {
+        emit(Resourse.Loading())
+        try {
+            emit(repo.getFavoriteDrinks())
+        } catch (e: Exception) {
+            emit(Resourse.Failure(e))
+        }
+    }
+
+    fun deleteDrink(drink: Drink) {
+        viewModelScope.launch {
+            repo.deleteDrink(drink)
+        }
+    }
+
 }
