@@ -11,7 +11,4 @@ interface DrinkDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertFavorite(drink: DrinkEntity)
-
-    @Delete
-    suspend fun deleteDrink(drink: Drink)
 }

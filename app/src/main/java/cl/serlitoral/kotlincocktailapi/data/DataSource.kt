@@ -19,8 +19,4 @@ class DataSource(private val appDatabase: AppDatabase) {
     suspend fun getFavoriteDrinks(): Resourse<List<DrinkEntity>> {
         return Resourse.Success(appDatabase.drinkDAO().getAllFavoriteDrinks())
     }
-
-    suspend fun deleteDrink(drink: Drink) {
-        appDatabase.drinkDAO().deleteDrink(drink)
-    }
 }

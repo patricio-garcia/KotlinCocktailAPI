@@ -72,9 +72,7 @@ class FavoritesFragment : Fragment(), MainAdapter.OnDrinkClickListener {
         })
     }
 
-    override fun onDrinkClick(drink: Drink, position: Int) {
-        viewModel.deleteDrink(drink)
-        rv_favoriteDrinks.adapter?.notifyItemRemoved(position)
-        rv_favoriteDrinks.adapter?.notifyItemRangeRemoved(position, rv_favoriteDrinks.adapter?.itemCount!!)
+    override fun onDrinkClick(drink: Drink) {
+
     }
 }
