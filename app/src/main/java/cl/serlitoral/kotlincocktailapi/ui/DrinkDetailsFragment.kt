@@ -10,7 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import cl.serlitoral.kotlincocktailapi.AppDatabase
 import cl.serlitoral.kotlincocktailapi.R
-import cl.serlitoral.kotlincocktailapi.data.DataSource
+import cl.serlitoral.kotlincocktailapi.data.DataSourceImpl
 import cl.serlitoral.kotlincocktailapi.data.model.Drink
 import cl.serlitoral.kotlincocktailapi.data.model.DrinkEntity
 import cl.serlitoral.kotlincocktailapi.domain.RepoImpl
@@ -26,7 +26,7 @@ class CocktailDetailsFragment : Fragment() {
 
     private val viewModel by viewModels<MainViewModel> {
         VMFactory(RepoImpl(
-            DataSource(AppDatabase.getDatabase(requireActivity().applicationContext))
+            DataSourceImpl(AppDatabase.getDatabase(requireActivity().applicationContext))
         )
     )}
 
