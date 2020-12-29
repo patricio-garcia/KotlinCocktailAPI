@@ -1,14 +1,13 @@
 package cl.serlitoral.kotlincocktailapi.ui.viewmodel
 
 import androidx.lifecycle.*
-import cl.serlitoral.kotlincocktailapi.data.model.Drink
 import cl.serlitoral.kotlincocktailapi.data.model.DrinkEntity
-import cl.serlitoral.kotlincocktailapi.domain.Repo
+import cl.serlitoral.kotlincocktailapi.domain.iRepo
 import cl.serlitoral.kotlincocktailapi.vo.Resourse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class MainViewModel(private val repo: Repo): ViewModel() {
+class MainViewModel(private val repo: iRepo): ViewModel() {
 
     private val drinkData = MutableLiveData<String>()
 

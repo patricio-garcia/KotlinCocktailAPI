@@ -5,12 +5,12 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import cl.serlitoral.kotlincocktailapi.data.model.DrinkEntity
-import cl.serlitoral.kotlincocktailapi.domain.DrinkDAO
+import cl.serlitoral.kotlincocktailapi.domain.data.iDrinkDAO
 
 @Database(entities = arrayOf(DrinkEntity::class), version = 1)
 abstract class AppDatabase: RoomDatabase() {
 
-    abstract fun drinkDAO(): DrinkDAO
+    abstract fun drinkDAO(): iDrinkDAO
 
     //Se crea un singleton
     companion object {

@@ -1,4 +1,4 @@
-package cl.serlitoral.kotlincocktailapi.ui
+package cl.serlitoral.kotlincocktailapi.ui.views
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -14,9 +14,10 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import cl.serlitoral.kotlincocktailapi.AppDatabase
 import cl.serlitoral.kotlincocktailapi.R
-import cl.serlitoral.kotlincocktailapi.data.DataSource
+import cl.serlitoral.kotlincocktailapi.data.DataSourceImpl
 import cl.serlitoral.kotlincocktailapi.data.model.Drink
 import cl.serlitoral.kotlincocktailapi.domain.RepoImpl
+import cl.serlitoral.kotlincocktailapi.ui.MainAdapter
 import cl.serlitoral.kotlincocktailapi.ui.viewmodel.MainViewModel
 import cl.serlitoral.kotlincocktailapi.ui.viewmodel.VMFactory
 import cl.serlitoral.kotlincocktailapi.vo.Resourse
@@ -27,7 +28,7 @@ class MainFragment : Fragment(), MainAdapter.OnDrinkClickListener {
     //Se inyecta dependencia al Model
     private val viewModel by viewModels<MainViewModel> {
         VMFactory(RepoImpl(
-            DataSource(AppDatabase.getDatabase(requireActivity().applicationContext))
+            DataSourceImpl(AppDatabase.getDatabase(requireActivity().applicationContext))
         )
     )}
 
@@ -96,6 +97,6 @@ class MainFragment : Fragment(), MainAdapter.OnDrinkClickListener {
     override fun onDrinkClick(drink: Drink) {
         val bundle = Bundle()
         bundle.putParcelable("drink", drink)
-        findNavController().navigate(R.id.action_mainFragment_to_cocktailDetailsFragment, bundle)
+        findNavController().navigate(R.id.action_mainFragment_to_drinkDetailsFragment, bundle)
     }
 }

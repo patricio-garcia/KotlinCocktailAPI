@@ -1,4 +1,4 @@
-package cl.serlitoral.kotlincocktailapi.ui
+package cl.serlitoral.kotlincocktailapi.ui.views
 
 import android.os.Bundle
 import android.util.Log
@@ -17,10 +17,10 @@ import cl.serlitoral.kotlincocktailapi.domain.RepoImpl
 import cl.serlitoral.kotlincocktailapi.ui.viewmodel.MainViewModel
 import cl.serlitoral.kotlincocktailapi.ui.viewmodel.VMFactory
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.fragment_cocktail_details.*
+import kotlinx.android.synthetic.main.fragment_drink_details.*
 
 
-class CocktailDetailsFragment : Fragment() {
+class DrinkDetailsFragment : Fragment() {
 
     private lateinit var drink: Drink
 
@@ -43,7 +43,7 @@ class CocktailDetailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_cocktail_details, container, false)
+        return inflater.inflate(R.layout.fragment_drink_details, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

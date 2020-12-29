@@ -1,4 +1,4 @@
-package cl.serlitoral.kotlincocktailapi.ui
+package cl.serlitoral.kotlincocktailapi.ui.views
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,9 +11,10 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import cl.serlitoral.kotlincocktailapi.AppDatabase
 import cl.serlitoral.kotlincocktailapi.R
-import cl.serlitoral.kotlincocktailapi.data.DataSource
+import cl.serlitoral.kotlincocktailapi.data.DataSourceImpl
 import cl.serlitoral.kotlincocktailapi.data.model.Drink
 import cl.serlitoral.kotlincocktailapi.domain.RepoImpl
+import cl.serlitoral.kotlincocktailapi.ui.MainAdapter
 import cl.serlitoral.kotlincocktailapi.ui.viewmodel.MainViewModel
 import cl.serlitoral.kotlincocktailapi.ui.viewmodel.VMFactory
 import cl.serlitoral.kotlincocktailapi.vo.Resourse
@@ -25,7 +26,7 @@ class FavoritesFragment : Fragment(), MainAdapter.OnDrinkClickListener {
     private val viewModel by viewModels<MainViewModel> {
         VMFactory(
             RepoImpl(
-            DataSource(AppDatabase.getDatabase(requireActivity().applicationContext))
+            DataSourceImpl(AppDatabase.getDatabase(requireActivity().applicationContext))
         )
     )}
 

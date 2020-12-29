@@ -1,11 +1,12 @@
-package cl.serlitoral.kotlincocktailapi.domain
+package cl.serlitoral.kotlincocktailapi.domain.data
 
 import cl.serlitoral.kotlincocktailapi.data.model.Drink
 import cl.serlitoral.kotlincocktailapi.data.model.DrinkEntity
 import cl.serlitoral.kotlincocktailapi.vo.Resourse
 
-interface iRepo {
-    suspend fun getDrinkList(drinkName: String): Resourse<List<Drink>>
+interface iDataSource {
+
+    suspend fun getDrinkByName(drinkName: String): Resourse<List<Drink>>
+    suspend fun insertDrinkIntoRoom(drink: DrinkEntity)
     suspend fun getFavoriteDrinks(): Resourse<List<DrinkEntity>>
-    suspend fun insertDrink(drink: DrinkEntity)
 }

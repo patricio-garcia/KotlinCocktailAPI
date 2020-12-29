@@ -7,16 +7,9 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="cl.serlitoral.kotlincocktailapi.ui.MainFragment"
+        android:name="cl.serlitoral.kotlincocktailapi.ui.views.MainFragment"
         android:label="Tragos"
         tools:layout="@layout/fragment_main">
-        <action
-            android:id="@+id/action_mainFragment_to_cocktailDetailsFragment"
-            app:destination="@id/cocktailDetailsFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_mainFragment_to_favoritesFragment"
             app:destination="@id/favoritesFragment"
@@ -24,15 +17,22 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_mainFragment_to_drinkDetailsFragment"
+            app:destination="@id/drinkDetailsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
-        android:id="@+id/cocktailDetailsFragment"
-        android:name="cl.serlitoral.kotlincocktailapi.ui.CocktailDetailsFragment"
-        android:label="Detalle"
-        tools:layout="@layout/fragment_cocktail_details"/>
-    <fragment
         android:id="@+id/favoritesFragment"
-        android:name="cl.serlitoral.kotlincocktailapi.ui.FavoritesFragment"
+        android:name="cl.serlitoral.kotlincocktailapi.ui.views.FavoritesFragment"
         android:label="fragment_favorites"
         tools:layout="@layout/fragment_favorites" />
+    <fragment
+        android:id="@+id/drinkDetailsFragment"
+        android:name="cl.serlitoral.kotlincocktailapi.ui.views.DrinkDetailsFragment"
+        android:label="fragment_drink_details"
+        tools:layout="@layout/fragment_drink_details" />
 </navigation>

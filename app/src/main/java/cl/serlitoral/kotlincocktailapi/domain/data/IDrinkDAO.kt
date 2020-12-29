@@ -1,11 +1,11 @@
-package cl.serlitoral.kotlincocktailapi.domain
+package cl.serlitoral.kotlincocktailapi.domain.data
 
 import androidx.room.*
 import cl.serlitoral.kotlincocktailapi.data.model.Drink
 import cl.serlitoral.kotlincocktailapi.data.model.DrinkEntity
 
 @Dao
-interface DrinkDAO {
+interface iDrinkDAO {
     @Query("SELECT * FROM DrinkEntity")
     suspend fun getAllFavoriteDrinks(): List<DrinkEntity>
 
