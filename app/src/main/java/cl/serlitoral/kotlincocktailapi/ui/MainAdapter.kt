@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import cl.serlitoral.kotlincocktailapi.R
 import cl.serlitoral.kotlincocktailapi.base.BaseViewHolder
 import cl.serlitoral.kotlincocktailapi.data.model.Drink
+import cl.serlitoral.kotlincocktailapi.databinding.DrinkItemBinding
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.drink_item.view.*
 
@@ -32,14 +33,15 @@ class MainAdapter(private val context: Context, private val drinkList: List<Drin
     }
 
     inner class MainViewHolder(itemView: View): BaseViewHolder<Drink>(itemView) {
+        val binding = DrinkItemBinding.bind(itemView)
         override fun bind(item: Drink, position: Int) {
             Glide.with(context)
                 .load(item.image)
                 .centerCrop()
-                .into(itemView.img_drink)
+                .into(binding.imgDrink)
 
-            itemView.tv_drinkName.text = item.name
-            itemView.tv_drinkDescription.text = item.description
+            binding.tvDrinkName.text = item.name
+            binding.tvDrinkDescription.text = item.description
 
             itemView.setOnClickListener { itemClickListener.onDrinkClick(item) }
         }

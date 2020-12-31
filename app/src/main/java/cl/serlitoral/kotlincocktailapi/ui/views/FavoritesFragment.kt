@@ -13,6 +13,7 @@ import cl.serlitoral.kotlincocktailapi.AppDatabase
 import cl.serlitoral.kotlincocktailapi.R
 import cl.serlitoral.kotlincocktailapi.data.DataSourceImpl
 import cl.serlitoral.kotlincocktailapi.data.model.Drink
+import cl.serlitoral.kotlincocktailapi.databinding.FragmentFavoritesBinding
 import cl.serlitoral.kotlincocktailapi.domain.RepoImpl
 import cl.serlitoral.kotlincocktailapi.ui.MainAdapter
 import cl.serlitoral.kotlincocktailapi.ui.viewmodel.MainViewModel
@@ -22,6 +23,9 @@ import kotlinx.android.synthetic.main.fragment_favorites.*
 
 
 class FavoritesFragment : Fragment(), MainAdapter.OnDrinkClickListener {
+
+    private var _binding: FragmentFavoritesBinding? = null
+    private val binding get() = _binding!!
 
     private val viewModel by viewModels<MainViewModel> {
         VMFactory(
@@ -39,7 +43,8 @@ class FavoritesFragment : Fragment(), MainAdapter.OnDrinkClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_favorites, container, false)
+        _binding = FragmentFavoritesBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -50,8 +55,8 @@ class FavoritesFragment : Fragment(), MainAdapter.OnDrinkClickListener {
     }
 
     private fun setupRecyclerView() {
-        rv_favoriteDrinks.layoutManager = LinearLayoutManager(requireContext())
-        rv_favoriteDrinks.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
+        binding.rvFavoriteDrinks.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvFavoriteDrinks.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
     }
 
     private fun setupObservers() {
@@ -65,7 +70,7 @@ class FavoritesFragment : Fragment(), MainAdapter.OnDrinkClickListener {
                         Drink(it.drinkId, it.image, it.name, it.description, it.hasAlcoholic)
                     }
 
-                    rv_favoriteDrinks.adapter = MainAdapter(requireContext(), drinkList, this)
+                    binding.rvFavoriteDrinks.adapter = MainAdapter(requireContext(), drinkList, this)
                 }
 
                 else -> { }

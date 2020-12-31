@@ -13,6 +13,7 @@ import cl.serlitoral.kotlincocktailapi.R
 import cl.serlitoral.kotlincocktailapi.data.DataSourceImpl
 import cl.serlitoral.kotlincocktailapi.data.model.Drink
 import cl.serlitoral.kotlincocktailapi.data.model.DrinkEntity
+import cl.serlitoral.kotlincocktailapi.databinding.FragmentDrinkDetailsBinding
 import cl.serlitoral.kotlincocktailapi.domain.RepoImpl
 import cl.serlitoral.kotlincocktailapi.ui.viewmodel.MainViewModel
 import cl.serlitoral.kotlincocktailapi.ui.viewmodel.VMFactory
@@ -21,6 +22,10 @@ import kotlinx.android.synthetic.main.fragment_drink_details.*
 
 
 class DrinkDetailsFragment : Fragment() {
+
+
+    private var _binding: FragmentDrinkDetailsBinding? = null
+    private val binding get() = _binding!!
 
     private lateinit var drink: Drink
 
@@ -43,7 +48,8 @@ class DrinkDetailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_drink_details, container, false)
+        _binding = FragmentDrinkDetailsBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -52,19 +58,19 @@ class DrinkDetailsFragment : Fragment() {
         Glide.with(requireContext())
             .load(drink.image)
             .centerCrop()
-            .into(img_drinkDetail)
+            .into(binding.imgDrinkDetail)
 
-        tv_drinkTitle.text = drink.name
+        binding.tvDrinkTitle.text = drink.name
 
         if(drink.hasAlcoholic == "Non_Alcoholic") {
-            tv_hasAlcoholic.text = "Bebida sin base alcohólica"
+            binding.tvHasAlcoholic.text = "Bebida sin base alcohólica"
         } else {
-            tv_hasAlcoholic.text = "Bebida con base alcohólica"
+            binding.tvHasAlcoholic.text = "Bebida con base alcohólica"
         }
 
-        tv_DrinkInstructions.text = drink.description
+        binding.tvDrinkInstructions.text = drink.description
 
-        btn_Favorite.setOnClickListener {
+        binding.btnFavorite.setOnClickListener {
             viewModel.saveDrink(DrinkEntity(drink.drinkId, drink.image, drink.name, drink.description, drink.hasAlcoholic))
             Toast.makeText(requireContext(), "Se guardó en Favoritos", Toast.LENGTH_LONG).show()
         }

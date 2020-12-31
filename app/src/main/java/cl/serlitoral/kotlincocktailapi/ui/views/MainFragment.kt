@@ -16,6 +16,8 @@ import cl.serlitoral.kotlincocktailapi.AppDatabase
 import cl.serlitoral.kotlincocktailapi.R
 import cl.serlitoral.kotlincocktailapi.data.DataSourceImpl
 import cl.serlitoral.kotlincocktailapi.data.model.Drink
+import cl.serlitoral.kotlincocktailapi.databinding.ActivityMainBinding
+import cl.serlitoral.kotlincocktailapi.databinding.FragmentMainBinding
 import cl.serlitoral.kotlincocktailapi.domain.RepoImpl
 import cl.serlitoral.kotlincocktailapi.ui.MainAdapter
 import cl.serlitoral.kotlincocktailapi.ui.viewmodel.MainViewModel
@@ -24,6 +26,10 @@ import cl.serlitoral.kotlincocktailapi.vo.Resourse
 import kotlinx.android.synthetic.main.fragment_main.*
 
 class MainFragment : Fragment(), MainAdapter.OnDrinkClickListener {
+
+
+    private var _binding: FragmentMainBinding? = null
+    private val binding get() = _binding!!
 
     //Se inyecta dependencia al Model
     private val viewModel by viewModels<MainViewModel> {
@@ -41,7 +47,8 @@ class MainFragment : Fragment(), MainAdapter.OnDrinkClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_main, container, false)
+        _binding = FragmentMainBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -51,7 +58,7 @@ class MainFragment : Fragment(), MainAdapter.OnDrinkClickListener {
         setupSearchView()
         setupObservers()
 
-        btn_toFavorites.setOnClickListener {
+        binding.btnToFavorites.setOnClickListener {
             findNavController().navigate(R.id.action_mainFragment_to_favoritesFragment)
         }
     }
@@ -60,16 +67,16 @@ class MainFragment : Fragment(), MainAdapter.OnDrinkClickListener {
         viewModel.fetchDrinkList.observe(viewLifecycleOwner, Observer { result ->
             when(result) {
                 is Resourse.Loading -> {
-                    progressBar.visibility = View.VISIBLE
+                    binding.progressBar.visibility = View.VISIBLE
                 }
 
                 is Resourse.Success -> {
-                    progressBar.visibility = View.GONE
-                    rv_drink.adapter = MainAdapter(requireContext(), result.data, this)
+                    binding.progressBar.visibility = View.GONE
+                    binding.rvDrink.adapter = MainAdapter(requireContext(), result.data, this)
                 }
 
                 else -> {
-                    progressBar.visibility = View.GONE
+                    binding.progressBar.visibility = View.GONE
                     Toast.makeText(requireContext(), "Error al cargar los datos", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -77,7 +84,7 @@ class MainFragment : Fragment(), MainAdapter.OnDrinkClickListener {
     }
 
     private fun setupSearchView() {
-        searchDrink.setOnQueryTextListener(object: OnQueryTextListener {
+        binding.searchDrink.setOnQueryTextListener(object: OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 viewModel.setDrink(query!!)
                 return false
@@ -90,8 +97,8 @@ class MainFragment : Fragment(), MainAdapter.OnDrinkClickListener {
     }
 
     private fun setupRecyclerView() {
-        rv_drink.layoutManager = LinearLayoutManager(requireContext())
-        rv_drink.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
+        binding.rvDrink.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvDrink.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
     }
 
     override fun onDrinkClick(drink: Drink) {
